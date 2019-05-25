@@ -1,34 +1,42 @@
 <template>
   <div id="app">
     <v-app>
-      <div id="nav">
-        <router-link to="/">Landing</router-link>|
-        <router-link to="/latest">Latest</router-link>
-      </div>
+      <div class="loading"></div>
       <router-view/>
+      <SpeedDial class="hidden-sm-and-down"></SpeedDial>
+      <ProfileDrawer class="hidden-sm-and-down"></ProfileDrawer>
     </v-app>
   </div>
 </template>
 
+<script lang="ts">
+import { mapState } from 'vuex';
+import { Component, Vue } from 'vue-property-decorator';
+import ProfileDrawer from '@/components/ProfileDrawer.vue';
+import SpeedDial from '@/components/SpeedDial.vue';
+
+@Component({
+  components: {
+    ProfileDrawer,
+    SpeedDial,
+  },
+  computed: {
+    ...mapState(['loading']),
+  },
+})
+export default class App extends Vue {}
+</script>
+
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   background-color: whitesmoke;
 }
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.v-navigation-drawer__border {
+  display: none;
 }
 </style>

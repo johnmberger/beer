@@ -2,7 +2,6 @@
   <v-card>
     <v-card-title primary-title>
       <div>
-        <div class="headline"></div>
         <h3>
           <v-avatar tile>
             <img :src="checkin.brewery.brewery_label" :alt="checkin.brewery.brewery_name">

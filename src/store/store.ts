@@ -1,11 +1,16 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import api from '../api';
+import moment from 'moment';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = {
   state: {
+    me: {
+      avatar: '',
+      numBeers: 0,
+    },
     topTenBeers: [],
     recentBeers: [],
     beerStats: [],
@@ -13,49 +18,64 @@ export default new Vuex.Store({
     error: null,
   },
   actions: {
-    async topTenBeers({ commit }) {
+    async topTenBeers({ commit }: any) {
       try {
-        const data: any = await api.getTopTen();
-        commit('setTopTenBeers', data.response);
+        const res: any = await api.getTopTen();
+        const topTenBeers: any[] = distillApiResponse(res);
+        commit('setTopTenBeers', topTenBeers);
       } catch (e) {
         commit('error', e);
       }
     },
-    async recentBeers({ commit }) {
+    async recentBeers({ commit }: any) {
       try {
         const res: any = await api.getLatest();
-        const recentBeers = distillApiResponse(res);
+        const recentBeers: any[] = distillApiResponse(res);
         commit('setRecentBeers', recentBeers);
       } catch (e) {
         commit('error', e);
       }
     },
-    async beerStats({ commit }) {
+    async beerStats({ commit }: any) {
       try {
-        const data: any = await api.getTopTen();
-        commit('setBeerStats', data.response);
+        const res: any = await api.getTopTen();
+        commit('setBeerStats', res.response);
       } catch (e) {
         commit('error', e);
       }
     },
   },
+  getters: {
+    mostRecentBeer(state: any): string {
+      if (state.recentBeers.length) {
+        return moment(state.recentBeers[0].created_at).fromNow();
+      } else {
+        return '';
+      }
+    },
+  },
   mutations: {
-    setTopTenBeers(state, data) {
+    setTopTenBeers(state: any, data: any[]) {
       state.topTenBeers = data;
     },
-    setRecentBeers(state, data) {
+    setRecentBeers(state: any, data: any[]) {
       state.recentBeers = data;
     },
-    setBeerStats(state, data) {
+    setBeerStats(state: any, data: any[]) {
       state.beerStats = data;
     },
   },
-});
+};
+
+export default new Vuex.Store(store);
 
 const distillApiResponse = (res: any): any[] => {
   if (res.data && res.data.response) {
     if (res.data.response.checkins && res.data.response.checkins.items) {
       return res.data.response.checkins.items;
+    }
+    if (res.data.response.beers && res.data.response.beers.items) {
+      return res.data.response.beers.items;
     }
   }
   return [];

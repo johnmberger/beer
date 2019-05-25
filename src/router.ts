@@ -8,13 +8,20 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'landing',
+      name: 'Landing',
       component: Landing,
     },
     {
       path: '/latest',
-      name: 'latest',
-      component: () => import(/* webpackChunkName: "latest" */ './views/Latest.vue'),
+      name: 'Latest',
+      component: () =>
+        import(/* webpackChunkName: "latest" */ './views/Latest.vue'),
+    },
+    {
+      path: '/top',
+      name: 'Top',
+      component: () =>
+        import(/* webpackChunkName: "latest" */ './views/TopTen.vue'),
     },
   ],
 });
