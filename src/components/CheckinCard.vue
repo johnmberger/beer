@@ -39,12 +39,12 @@
         </div>
       </template>
 
-      <v-card>
-        <!-- <img
-          :src="`https://maps.googleapis.com/maps/api/staticmap?center=${ checkin.venue.location.lat },${ checkin.venue.location.lng }&zoom=12&size=600x300&maptype=roadmap&markers=color:blue%7C${ checkin.venue.location.lat },${ checkin.venue.location.lng }&key=AIzaSyCJFMlJMIdwv3cTxbHhOFYR2Z8obJlINes`"
+      <!-- <v-card>
+        <img
+          :src="`https://maps.googleapis.com/maps/api/staticmap?center=${ checkin.venue.location.lat },${ checkin.venue.location.lng }&zoom=12&size=600x300&maptype=roadmap&markers=color:blue%7C${ checkin.venue.location.lat },${ checkin.venue.location.lng }&key=${gKey1}${gKey2}`"
           alt="map"
-        >-->
-      </v-card>
+        >
+      </v-card> -->
     </v-dialog>
 
     <div class="chips" v-if="checkin.badges.count">
@@ -68,6 +68,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class CheckinCard extends Vue {
+  private gKey1: string = 'AIzaSyCJFMlJMIdwv3cT';
+  private gKey2: string = 'xbHhOFYR2Z8obJlINes';
   @Prop() private checkin!: any;
 }
 </script>
