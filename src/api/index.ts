@@ -2,6 +2,12 @@ import axios, { AxiosPromise } from 'axios';
 const BASE_URL: string = 'https://beer-proxy.herokuapp.com';
 
 export default {
+  getUserInfo(): AxiosPromise {
+    return axios({
+      method: 'get',
+      url: `${BASE_URL}/user-info`,
+    });
+  },
   getLatest(): AxiosPromise {
     return axios({
       method: 'get',

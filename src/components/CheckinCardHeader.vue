@@ -1,11 +1,11 @@
 <template>
-  <v-toolbar color="purple" dark>
+  <v-toolbar color="purple" dark class="toolbar-header">
     <v-avatar tile v-if="checkin.beer.beer_label">
       <img :src="checkin.beer.beer_label" :alt="checkin.brewery.brewery_name">
     </v-avatar>
     <v-toolbar-title class="beer-name" :title="checkin.beer.beer_name">{{ checkin.beer.beer_name }}</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-tooltip top>
+    <v-tooltip bottom>
       <template v-slot:activator="{ on }">
         <div v-on="on" class="hidden-xs-only">
           <v-rating
@@ -33,6 +33,10 @@ export default class CheckinCardHeader extends Vue {
 </script>
 
 <style scoped>
+.toolbar-header {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
 .beer-name {
   font-weight: 400;
   font-size: 24px;

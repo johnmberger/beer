@@ -23,5 +23,11 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "latest" */ './views/TopTen.vue'),
     },
+    {
+      path: '/stats',
+      name: 'Stats',
+      component: () =>
+        import(/* webpackChunkName: "latest" */ './views/Stats.vue'),
+    },
   ],
 });

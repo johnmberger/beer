@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="card-container">
     <v-card-title primary-title>
       <div>
         <div class="headline"></div>
@@ -41,4 +41,10 @@ export default class TopTenCard extends Vue {
 </script>
 
 <style scoped>
+.card-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
 </style>

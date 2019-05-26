@@ -49,11 +49,11 @@
     <div class="chips" v-if="checkin.badges.count">
       <v-tooltip top v-for="badge in checkin.badges.items" :key="badge.badge_id" max-width="300">
         <template v-slot:activator="{ on }">
-          <v-chip v-on="on">
+          <v-chip v-on="on" class="chip">
             <v-avatar>
               <img :src="badge.badge_image.sm" alt="badge">
             </v-avatar>
-            {{ badge.badge_name }}
+            {{ badge.badge_name | formatBadge }}
           </v-chip>
         </template>
         <span>{{ badge.badge_description }}</span>
@@ -74,4 +74,9 @@ export default class CheckinCard extends Vue {
 </script>
 
 <style scoped>
+.chip {
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
 </style>

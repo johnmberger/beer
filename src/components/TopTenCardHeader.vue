@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar color="purple" dark>
+  <v-toolbar color="purple" dark class="toolbar-header">
     <v-btn absolute dark small fab top left class="rank" :class="`rank-${rank}`">#{{ rank }}</v-btn>
     <v-toolbar-title class="beer-name" :title="beer.beer.beer_name">{{ beer.beer.beer_name }}</v-toolbar-title>
     <v-spacer></v-spacer>
@@ -20,6 +20,10 @@ export default class TopTenCardHeader extends Vue {
 </script>
 
 <style scoped>
+.toolbar-header {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
 .rank {
   margin-left: -18px;
   left: 0 !important;

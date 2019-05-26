@@ -5,7 +5,7 @@ Vue.filter(
   'formatDate',
   (value: Date): string => {
     if (value) {
-      return moment(String(value)).format('LLL');
+      return moment(String(value)).fromNow();
     } else {
       return value;
     }
