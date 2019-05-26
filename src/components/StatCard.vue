@@ -1,14 +1,14 @@
 <template>
   <v-card color="white" class="stat-card">
     <div class="stat-card-title">
-      <h1 class="title-copy">{{ name }} i drink beer</h1>
+      <h1 class="title-copy">{{ name }}</h1>
       <v-icon color="grey" medium>fas {{ icon }}</v-icon>
     </div>
     <v-sparkline
-      auto-draw
-      class="chart"
-      color="grey"
+      v-if="graph === 'trend'"
       :value="stat"
+      auto-draw
+      color="grey"
       :gradient="['#f72047', '#ffd200', '#1feaea']"
       height="150"
       padding="24"
@@ -17,6 +17,20 @@
       smooth
     >
       <template v-slot:label="stat">{{ filterLabel(filter, stat.index + 1) }}</template>
+    </v-sparkline>
+    <v-sparkline
+      v-if="graph === 'bars'"
+      :value="stat"
+      auto-draw
+      color="grey"
+      :gradient="['#f72047', '#ffd200', '#1feaea']"
+      height="150"
+      padding="24"
+      line-width="3"
+      stroke-linecap="round"
+      smooth
+    >
+      <template v-slot:label="stat">{{ labels[stat.index] % 0.5 == 0  ? labels[stat.index] : '' }}</template>
     </v-sparkline>
   </v-card>
 </template>
@@ -27,7 +41,10 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component({
   methods: {
     filterLabel(filter, val) {
-      return Vue.filter(filter)(val);
+      if (filter) {
+        return Vue.filter(filter)(val);
+      }
+      return val;
     },
   },
 })
@@ -36,6 +53,8 @@ export default class StatCard extends Vue {
   @Prop() private name!: string;
   @Prop() private icon!: string;
   @Prop() private filter!: string;
+  @Prop() private graph!: boolean;
+  @Prop() private labels!: boolean;
 }
 </script>
 

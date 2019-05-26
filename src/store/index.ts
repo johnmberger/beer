@@ -81,23 +81,9 @@ const store = {
         return [];
       }
     },
-    dayCountLabels(state: any): { name: string; count: number }[] {
-      if (state.beerStats) {
-        return state.beerStats.dayCount.map((day: any) => day.name);
-      } else {
-        return [];
-      }
-    },
     dayCountValues(state: any): { name: string; count: number }[] {
       if (state.beerStats) {
         return state.beerStats.dayCount.map((day: any) => day.count);
-      } else {
-        return [];
-      }
-    },
-    hourCount(state: any): { name: string; count: number }[] {
-      if (state.beerStats) {
-        return state.beerStats.hourCount;
       } else {
         return [];
       }
@@ -111,7 +97,14 @@ const store = {
     },
     ratingCount(state: any): { name: number; count: number }[] {
       if (state.beerStats) {
-        return state.beerStats.hourCount;
+        return state.beerStats.ratingCount.map((rating: any) => rating.count);
+      } else {
+        return [];
+      }
+    },
+    ratingLabels(state: any): { name: number; count: number }[] {
+      if (state.beerStats) {
+        return state.beerStats.ratingCount.map((rating: any) => rating.name);
       } else {
         return [];
       }
