@@ -3,11 +3,16 @@
     <v-app>
       <div v-if="loading" class="loading">
         <BeerLoader></BeerLoader>
-        <h2>tapping the kegs!</h2>
+        <h2>tapping the kegs</h2>
+        <v-fade-transition>
+          <p v-if="additionalText">almost finished...</p>
+        </v-fade-transition>
       </div>
       <div v-else>
         <AppHeader class="hidden-md-and-up"></AppHeader>
-        <router-view/>
+        <transition name="fade">
+          <router-view/>
+        </transition>
         <SpeedDial class="hidden-sm-and-down"></SpeedDial>
         <ProfileDrawer class="hidden-sm-and-down" v-if="!viewingStats"></ProfileDrawer>
       </div>
@@ -38,7 +43,12 @@ import SpeedDial from '@/components/SpeedDial.vue';
   },
 })
 export default class App extends Vue {
+  private additionalText: boolean = false;
+
   async mounted() {
+    setTimeout(() => {
+      this.additionalText = true;
+    }, 4500);
     await this.$store.dispatch('userInfo');
     await this.$store.dispatch('topTenBeers');
     await this.$store.dispatch('recentBeers');
@@ -71,9 +81,27 @@ export default class App extends Vue {
     color: grey;
     font-weight: 400;
   }
+  p {
+    color: grey;
+    font-weight: 300;
+  }
 }
 /* Vuetify override */
 .v-navigation-drawer__border {
   display: none;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 0.25s;
+}
+
+.fade-enter-active {
+  transition-delay: 0.25s;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 </style>

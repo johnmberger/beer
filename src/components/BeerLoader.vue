@@ -167,7 +167,7 @@ $bubble: darken(#ffd36d, 15%);
   border-radius: 200px;
   left: -4px;
   box-shadow: 8px -12px 0 ghostwhite;
-  animation: 6s drip infinite;
+  animation: 4s drip infinite;
 }
 
 @keyframes up {

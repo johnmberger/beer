@@ -13,7 +13,7 @@
           dark
           color="green"
           class="first-icon"
-          @click="$router.push({ name: 'Latest'})"
+          @click="$router.push({ name: 'Latest' })"
           v-on="on"
         >
           <v-icon>fas fa-beer</v-icon>
@@ -23,7 +23,7 @@
     </v-tooltip>
     <v-tooltip right>
       <template v-slot:activator="{ on }">
-        <v-btn fab dark color="indigo" @click="$router.push({ name: 'Top'})" v-on="on">
+        <v-btn fab dark color="indigo" @click="$router.push({ name: 'Top' })" v-on="on">
           <v-icon>fas fa-award</v-icon>
         </v-btn>
       </template>
@@ -31,7 +31,7 @@
     </v-tooltip>
     <v-tooltip right>
       <template v-slot:activator="{ on }">
-        <v-btn fab dark color="purple" v-on="on" @click="$router.push({ name: 'Stats'})">
+        <v-btn fab dark color="purple" v-on="on" @click="$router.push({ name: 'Stats' })">
           <v-icon>fas fa-chart-bar</v-icon>
         </v-btn>
       </template>
