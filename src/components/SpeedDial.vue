@@ -1,5 +1,5 @@
 <template>
-  <v-speed-dial v-model="fab" top left fixed direction="bottom" class="dial">
+  <v-speed-dial v-model="fab" bottom right fixed direction="top" class="dial">
     <template v-slot:activator>
       <v-btn v-model="fab" color="orange" dark fab large>
         <v-icon>menu</v-icon>

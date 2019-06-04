@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar dark color="primary" scroll-toolbar-off-screen fixed>
+  <v-toolbar dark color="purple" scroll-toolbar-off-screen fixed>
     <v-toolbar-side-icon></v-toolbar-side-icon>
 
     <v-toolbar-title class="white--text">What's John Drinking?</v-toolbar-title>

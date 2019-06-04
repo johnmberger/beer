@@ -9,11 +9,11 @@
         </v-fade-transition>
       </div>
       <div v-else>
-        <AppHeader class="hidden-md-and-up"></AppHeader>
+        <AppHeader></AppHeader>
         <transition name="fade">
           <router-view/>
         </transition>
-        <SpeedDial class="hidden-sm-and-down"></SpeedDial>
+        <!-- <SpeedDial class="hidden-md-and-up"></SpeedDial> -->
         <ProfileDrawer class="hidden-sm-and-down" v-if="!viewingStats"></ProfileDrawer>
       </div>
     </v-app>
@@ -93,11 +93,11 @@ export default class App extends Vue {
 .fade-enter-active,
 .fade-leave-active {
   transition-property: opacity;
-  transition-duration: 0.25s;
+  transition-duration: 0.5s;
 }
 
 .fade-enter-active {
-  transition-delay: 0.25s;
+  transition-delay: 0.5s;
 }
 
 .fade-enter,
