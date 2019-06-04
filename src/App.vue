@@ -4,9 +4,11 @@
       <div v-if="loading" class="loading">
         <BeerLoader></BeerLoader>
         <h2>tapping the kegs</h2>
-        <v-fade-transition>
-          <p v-if="additionalText">almost finished...</p>
-        </v-fade-transition>
+        <div class="almost" >
+          <v-fade-transition>
+            <p v-if="additionalText">pouring a pint...</p>
+          </v-fade-transition>
+        </div>
       </div>
       <div v-else>
         <AppHeader></AppHeader>
@@ -83,6 +85,16 @@ export default class App extends Vue {
   }
   p {
     color: grey;
+    font-weight: 300;
+  }
+  .almost {
+    height: 30px;
+  }
+}
+.title-container {
+  .beer-title {
+    margin-top: 100px;
+    font-size: 44px;
     font-weight: 300;
   }
 }

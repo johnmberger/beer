@@ -42,7 +42,7 @@ export default class ProfileDrawer extends Vue {}
 <style scoped>
 .drawer-container {
   background-color: transparent !important;
-  margin-top: 36px !important;
+  margin-top: 65px !important;
 }
 .loader-container {
   display: flex;
