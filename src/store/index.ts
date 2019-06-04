@@ -2,10 +2,12 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import api from '../api';
 import moment from 'moment';
+import { AxiosResponse } from 'axios';
+import { Stat, UserData } from '@/interfaces/beer.interfaces';
 
 Vue.use(Vuex);
 
-const store = {
+const store: any = {
   state: {
     me: {},
     topTenBeers: [],
@@ -17,8 +19,8 @@ const store = {
   actions: {
     async userInfo({ commit }: any) {
       try {
-        const res: any = await api.getUserInfo();
-        const me: any = distillUserInfoResponse(res);
+        const res: AxiosResponse = await api.getUserInfo();
+        const me: UserData | {} = distillUserInfoResponse(res);
         commit('setUserInfo', me);
       } catch (e) {
         commit('error', e);
@@ -26,7 +28,7 @@ const store = {
     },
     async topTenBeers({ commit }: any) {
       try {
-        const res: any = await api.getTopTen();
+        const res: AxiosResponse = await api.getTopTen();
         const topTenBeers: any[] = distillApiResponse(res);
         commit('setTopTenBeers', topTenBeers);
       } catch (e) {
@@ -35,7 +37,7 @@ const store = {
     },
     async recentBeers({ commit }: any) {
       try {
-        const res: any = await api.getLatest();
+        const res: AxiosResponse = await api.getLatest();
         const recentBeers: any[] = distillApiResponse(res);
         commit('setRecentBeers', recentBeers);
       } catch (e) {
@@ -44,7 +46,7 @@ const store = {
     },
     async beerStats({ commit }: any) {
       try {
-        const res: any = await api.getStats();
+        const res: AxiosResponse = await api.getStats();
         const beerStats = res.data;
         commit('setStats', beerStats);
       } catch (e) {
@@ -74,42 +76,42 @@ const store = {
         return 0;
       }
     },
-    monthCountValues(state: any): { name: string; count: number }[] {
+    monthCountValues(state: any): Stat[] {
       if (state.beerStats) {
-        return state.beerStats.monthCount.map((day: any) => day.count);
+        return state.beerStats.monthCount.map((day: Stat) => day.count);
       } else {
         return [];
       }
     },
-    dayCountValues(state: any): { name: string; count: number }[] {
+    dayCountValues(state: any): Stat[] {
       if (state.beerStats) {
-        return state.beerStats.dayCount.map((day: any) => day.count);
+        return state.beerStats.dayCount.map((day: Stat) => day.count);
       } else {
         return [];
       }
     },
-    hourCountValues(state: any): { name: string; count: number }[] {
+    hourCountValues(state: any): Stat[] {
       if (state.beerStats) {
-        return state.beerStats.hourCount.map((hour: any) => hour.count);
+        return state.beerStats.hourCount.map((hour: Stat) => hour.count);
       } else {
         return [];
       }
     },
-    ratingCount(state: any): { name: number; count: number }[] {
+    ratingCount(state: any): Stat[] {
       if (state.beerStats) {
-        return state.beerStats.ratingCount.map((rating: any) => rating.count);
+        return state.beerStats.ratingCount.map((rating: Stat) => rating.count);
       } else {
         return [];
       }
     },
-    ratingLabels(state: any): { name: number; count: number }[] {
+    ratingLabels(state: any): Stat[] {
       if (state.beerStats) {
-        return state.beerStats.ratingCount.map((rating: any) => rating.name);
+        return state.beerStats.ratingCount.map((rating: Stat) => rating.name);
       } else {
         return [];
       }
     },
-    styleCount(state: any): { name: number; count: number }[] {
+    styleCount(state: any): Stat[] {
       if (state.beerStats) {
         return state.beerStats.styleCount;
       } else {
@@ -118,13 +120,13 @@ const store = {
     },
   },
   mutations: {
-    setUserInfo(state: any, data: any) {
+    setUserInfo(state: any, data: UserData | {}) {
       state.me = data;
     },
-    setTopTenBeers(state: any, data: any[]) {
+    setTopTenBeers(state: any, data: Stat[]) {
       state.topTenBeers = data;
     },
-    setRecentBeers(state: any, data: any[]) {
+    setRecentBeers(state: any, data: Stat[]) {
       state.recentBeers = data;
     },
     setStats(state: any, data: any) {
@@ -149,7 +151,7 @@ const distillApiResponse = (res: any): any[] => {
   return [];
 };
 
-const distillUserInfoResponse = (res: any): Object => {
+const distillUserInfoResponse = (res: AxiosResponse): UserData | {} => {
   if (res.data && res.data.response) {
     if (res.data.response.user) {
       return res.data.response.user;

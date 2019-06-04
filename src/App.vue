@@ -1,10 +1,14 @@
 <template>
   <div id="app">
     <v-app>
-      <div class="loading"></div>
-      <router-view/>
-      <SpeedDial class="hidden-sm-and-down"></SpeedDial>
-      <ProfileDrawer class="hidden-sm-and-down" v-if="!viewingStats"></ProfileDrawer>
+      <div v-if="true" class="loading">
+        <BeerLoader></BeerLoader>
+      </div>
+      <div v-else>
+        <router-view/>
+        <SpeedDial class="hidden-sm-and-down"></SpeedDial>
+        <ProfileDrawer class="hidden-sm-and-down" v-if="!viewingStats"></ProfileDrawer>
+      </div>
     </v-app>
   </div>
 </template>
@@ -12,11 +16,13 @@
 <script lang="ts">
 import { mapState } from 'vuex';
 import { Component, Vue } from 'vue-property-decorator';
+import BeerLoader from '@/components/BeerLoader.vue';
 import ProfileDrawer from '@/components/ProfileDrawer.vue';
 import SpeedDial from '@/components/SpeedDial.vue';
 
 @Component({
   components: {
+    BeerLoader,
     ProfileDrawer,
     SpeedDial,
   },
@@ -24,7 +30,7 @@ import SpeedDial from '@/components/SpeedDial.vue';
     ...mapState(['loading']),
     viewingStats() {
       return this.$route.name === 'Stats';
-    }
+    },
   },
 })
 export default class App extends Vue {
@@ -47,18 +53,21 @@ export default class App extends Vue {
   background: url('/assets/background.png');
   background-repeat: repeat;
   text-transform: lowercase;
+  min-width: 320px;
 }
-.v-navigation-drawer__border {
-  display: none;
-}
-.title-container {
-  text-align: left;
-  margin-left: 24px;
-  margin-top: 40px;
-  margin-bottom: 40px;
+.loading {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .beer-title {
   font-size: 36px;
   font-weight: 400;
+}
+/* Vuetify override */
+.v-navigation-drawer__border {
+  display: none;
 }
 </style>
