@@ -1,6 +1,6 @@
 <template>
   <v-container class="stat-container">
-    <v-layout>
+    <v-layout v-if="statsLoaded">
       <div class="title-container">
         <h1 class="beer-title">Some fun stats</h1>
       </div>
@@ -37,6 +37,7 @@
         <StatCard
           :stat="ratingCount"
           bar="true"
+          fill="true"
           name="how i rate beer"
           graph="bars"
           :labels="ratingLabels"
@@ -46,6 +47,9 @@
       <v-flex xs12>
         <StylesTried></StylesTried>
       </v-flex>
+    </v-layout>
+    <v-layout v-else class="loader-container">
+      <v-progress-circular :size="100" color="orange" indeterminate></v-progress-circular>
     </v-layout>
   </v-container>
 </template>
@@ -62,7 +66,7 @@ import StylesTried from '@/components/StylesTried.vue';
     StylesTried,
   },
   computed: {
-    ...mapState(['beerStats']),
+    ...mapState(['statsLoaded', 'beerStats']),
     ...mapGetters([
       'avgRating',
       'styleCount',
@@ -80,6 +84,13 @@ export default class Stats extends Vue {}
 <style lang="css" scoped>
 .title-container {
   margin-top: 16px;
+}
+.loader-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .stat-card {
   margin: 24px;

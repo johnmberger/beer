@@ -14,6 +14,7 @@
       padding="24"
       line-width="3"
       stroke-linecap="round"
+      :fill="fill || false"
       smooth
     >
       <template v-slot:label="stat">{{ filterLabel(filter, stat.index + 1) }}</template>
@@ -55,6 +56,7 @@ export default class StatCard extends Vue {
   @Prop() private filter!: string;
   @Prop() private graph!: boolean;
   @Prop() private labels!: boolean;
+  @Prop() private fill!: boolean;
 }
 </script>
 

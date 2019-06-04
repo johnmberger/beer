@@ -29,7 +29,7 @@ $bubble: darken(#ffd36d, 15%);
 }
 
 .loader-wrapper {
-  padding: 45px 18px 20px 20px;
+  padding: 45px 38px 20px 40px;
   background: rgba(0, 0, 0, 0.12);
   border-radius: 5px;
 }
@@ -99,14 +99,14 @@ $bubble: darken(#ffd36d, 15%);
     border-radius: 100%;
   }
   &:before {
-    animation: 4s up infinite;
+    animation: 2s up infinite;
     @include size(4px, 4px);
     bottom: 4px;
     left: 10px;
     box-shadow: 14px -30px 0 $bubble, 8px -20px 0 $bubble, 12px -6px 0 $bubble;
   }
   &:after {
-    animation: 2s up infinite;
+    animation: 1.3s up infinite;
     @include size(3px, 3px);
     bottom: 12px;
     left: 14px;
@@ -158,16 +158,16 @@ $bubble: darken(#ffd36d, 15%);
     top: -16px;
     left: -16px;
   }
-  animation: 3s bubble infinite;
+  animation: 2s bubble infinite;
 }
 
 .drip {
-  @include size(10px, 28px);
+  @include size(6px, 9px);
   top: 2px;
-  border-radius: 200px;
-  left: -4px;
+  border-radius: 40px;
+  left: -2px;
   box-shadow: 8px -12px 0 ghostwhite;
-  animation: 4s drip infinite;
+  animation: 3s drip infinite;
 }
 
 @keyframes up {
@@ -187,7 +187,7 @@ $bubble: darken(#ffd36d, 15%);
     transform: translateY(0px);
   }
   100% {
-    height: 42px;
+    height: 30px;
   }
 }
 @keyframes bubble {

@@ -1,5 +1,6 @@
 <template>
-  <v-card>
+  <v-card class="card">
+    <h2>beer info</h2>
     <v-card-title primary-title>
       <div>
         <h3>
@@ -43,10 +44,13 @@
           :src="`https://maps.googleapis.com/maps/api/staticmap?center=${ checkin.venue.location.lat },${ checkin.venue.location.lng }&zoom=12&size=600x300&maptype=roadmap&markers=color:blue%7C${ checkin.venue.location.lat },${ checkin.venue.location.lng }&key=${gKey1}${gKey2}`"
           alt="map"
         >
-      </v-card> -->
+      </v-card>-->
     </v-dialog>
 
+    <v-divider></v-divider>
+
     <div class="chips" v-if="checkin.badges.count">
+      <h2>Badges Earned</h2>
       <v-tooltip top v-for="badge in checkin.badges.items" :key="badge.badge_id" max-width="300">
         <template v-slot:activator="{ on }">
           <v-chip v-on="on" class="chip">
@@ -73,10 +77,24 @@ export default class CheckinCard extends Vue {
 }
 </script>
 
-<style scoped>
-.chip {
-  max-width: 100%;
-  text-overflow: ellipsis;
-  overflow-x: hidden;
+<style scoped lang="scss">
+.card {
+  padding-top: 12px;
+  border-top-left-radius: 0%;
+  border-top-right-radius: 0%;
+}
+h2 {
+  font-weight: 300;
+  color: grey;
+  margin-left: 4px;
+}
+.chips {
+  padding: 12px;
+  text-align: center;
+  .chip {
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+  }
 }
 </style>
