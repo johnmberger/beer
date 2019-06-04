@@ -10,9 +10,13 @@ Vue.use(Vuex);
 const store: any = {
   state: {
     me: {},
+    meLoaded: false,
     topTenBeers: [],
+    topTenLoaded: false,
     recentBeers: [],
+    recentBeersLoaded: false,
     beerStats: null,
+    statsLoaded: false,
     loading: true,
     error: null,
   },
@@ -124,15 +128,19 @@ const store: any = {
   mutations: {
     setUserInfo(state: any, data: UserData | {}) {
       state.me = data;
+      state.meLoaded = true;
     },
     setTopTenBeers(state: any, data: Stat[]) {
       state.topTenBeers = data;
+      state.topTenLoaded = true;
     },
     setRecentBeers(state: any, data: Stat[]) {
       state.recentBeers = data;
+      state.recentBeersLoaded = true;
     },
     setStats(state: any, data: any) {
       state.beerStats = data;
+      state.statsLoaded = true;
     },
     setLoadingStatus(state: any, status: boolean) {
       state.loading = status;
