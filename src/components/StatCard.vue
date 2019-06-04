@@ -31,7 +31,7 @@
       stroke-linecap="round"
       smooth
     >
-      <template v-slot:label="stat">{{ labels[stat.index] % 0.5 == 0  ? labels[stat.index] : '' }}</template>
+      <template v-slot:label="stat">{{ labels[stat.index] % 0.5 == 0 ? labels[stat.index] : '' }}</template>
     </v-sparkline>
   </v-card>
 </template>
@@ -77,5 +77,11 @@ export default class StatCard extends Vue {
 .title-copy {
   font-weight: 400;
   color: grey;
+}
+
+@media (max-width: 450px) {
+  .title-copy {
+    font-size: 18px;
+  }
 }
 </style>
