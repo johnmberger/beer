@@ -13,7 +13,7 @@ const store: any = {
     topTenBeers: [],
     recentBeers: [],
     beerStats: null,
-    loading: null,
+    loading: true,
     error: null,
   },
   actions: {
@@ -51,6 +51,8 @@ const store: any = {
         commit('setStats', beerStats);
       } catch (e) {
         commit('error', e);
+      } finally {
+        commit('setLoadingStatus', false);
       }
     },
   },
@@ -131,6 +133,9 @@ const store: any = {
     },
     setStats(state: any, data: any) {
       state.beerStats = data;
+    },
+    setLoadingStatus(state: any, status: boolean) {
+      state.loading = status;
     },
   },
 };

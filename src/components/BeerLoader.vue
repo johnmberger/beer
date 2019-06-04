@@ -21,7 +21,7 @@ export default class BeerLoader extends Vue {}
 <style scoped lang="scss">
 $mug: grey;
 $beer: #ffd36d;
-$bubble: darken(#ffd36d, 10%);
+$bubble: darken(#ffd36d, 15%);
 
 @mixin size($w: 100%, $h: 100%) {
   width: $w;
@@ -29,13 +29,14 @@ $bubble: darken(#ffd36d, 10%);
 }
 
 .loader-wrapper {
-  padding: 60px 20px 20px 30px;
-  background: rgba(0, 0, 0, 0.08);
+  padding: 45px 18px 20px 20px;
+  background: rgba(0, 0, 0, 0.12);
   border-radius: 5px;
 }
 
 .loader-container {
   position: relative;
+  max-width: 200px;
 }
 
 .beer,
@@ -58,9 +59,9 @@ $bubble: darken(#ffd36d, 10%);
 
 .mug {
   position: relative;
-  @include size(20vmin, 32vmin);
+  @include size(36px, 60px);
   background: $mug;
-  border-radius: 2vmin;
+  border-radius: 4px;
   &:before,
   &:after {
     position: absolute;
@@ -68,28 +69,28 @@ $bubble: darken(#ffd36d, 10%);
   }
   &:before {
     z-index: -2;
-    left: 12vmin;
-    top: 6vmin;
-    @include size(15vmin, 17vmin);
+    left: 24px;
+    top: 12px;
+    @include size(30px, 34px);
     border-radius: 19%;
     background: $mug;
   }
   &:after {
     z-index: -1;
-    @include size(12vmin, 13vmin);
-    top: 8vmin;
-    left: 13vmin;
-    background: grey;
+    @include size(24px, 26px);
+    top: 8px;
+    left: 13px;
+    background: lightgrey;
     border-radius: 19%;
   }
 }
 
 .beer {
-  top: 2vmin;
-  left: 2vmin;
-  @include size(16vmin, 28vmin);
+  top: 2px;
+  left: 2px;
+  @include size(32px, 56px);
   background: $beer;
-  border-radius: 1vmin;
+  border-radius: 2px;
   &:before,
   &:after {
     position: absolute;
@@ -99,25 +100,24 @@ $bubble: darken(#ffd36d, 10%);
   }
   &:before {
     animation: 4s up infinite;
-    @include size(2vmin, 2vmin);
-    bottom: 2vmin;
-    left: 5vmin;
-    box-shadow: 7vmin -15vmin 0 $bubble, 4vmin -10vmin 0 $bubble,
-      6vmin -3vmin 0 $bubble;
+    @include size(4px, 4px);
+    bottom: 4px;
+    left: 10px;
+    box-shadow: 14px -30px 0 $bubble, 8px -20px 0 $bubble, 12px -6px 0 $bubble;
   }
   &:after {
     animation: 2s up infinite;
-    @include size(1.5vmin, 1.5vmin);
-    bottom: 6vmin;
-    left: 7vmin;
-    box-shadow: -3vmin -8vmin 0 $bubble, 7vmin -5vmin 0 $bubble;
+    @include size(3px, 3px);
+    bottom: 12px;
+    left: 14px;
+    box-shadow: -6px -16px 0 $bubble, 14px -10px 0 $bubble;
   }
 }
 
 .bubble {
-  @include size(10vmin, 10vmin);
-  top: -5vmin;
-  left: -3vmin;
+  @include size(20px, 20px);
+  top: -10px;
+  left: -6px;
   &:before,
   &:after {
     position: absolute;
@@ -126,21 +126,21 @@ $bubble: darken(#ffd36d, 10%);
     border-radius: 100%;
   }
   &:before {
-    @include size(12vmin, 12vmin);
-    left: 5vmin;
-    top: -2vmin;
+    @include size(24px, 24px);
+    left: 10px;
+    top: -4px;
   }
   &:after {
-    @include size(10vmin, 10vmin);
-    left: 14vmin;
-    top: 0vmin;
+    @include size(20px, 20px);
+    left: 28px;
+    top: 0px;
   }
 }
 
 .small-bubbles {
-  @include size(5vmin, 5vmin);
-  top: -7vmin;
-  left: 11vmin;
+  // @include size(15px, 15px);
+  top: -14px;
+  left: 22px;
   &:before,
   &:after {
     position: absolute;
@@ -149,23 +149,24 @@ $bubble: darken(#ffd36d, 10%);
     background: ghostwhite;
   }
   &:before {
-    @include size(3vmin, 3vmin);
-    top: -6vmin;
-    left: -3vmin;
+    @include size(6px, 6px);
+    top: -12px;
+    left: -6px;
   }
   &:after {
-    @include size(3vmin, 3vmin);
-    top: -8vmin;
-    left: -8vmin;
+    @include size(6px, 6px);
+    top: -16px;
+    left: -16px;
   }
+  animation: 3s bubble infinite;
 }
 
 .drip {
-  @include size(5vmin, 14vmin);
-  top: 1vmin;
-  border-radius: 100px;
-  left: -2vmin;
-  box-shadow: 4vmin -6vmin 0 ghostwhite;
+  @include size(10px, 28px);
+  top: 2px;
+  border-radius: 200px;
+  left: -4px;
+  box-shadow: 8px -12px 0 ghostwhite;
   animation: 6s drip infinite;
 }
 
@@ -174,7 +175,7 @@ $bubble: darken(#ffd36d, 10%);
     transform: translateY(0px);
   }
   99% {
-    transform: translateY(-70px);
+    transform: translateY(-40px);
   }
   100% {
     opacity: 0;
@@ -186,7 +187,18 @@ $bubble: darken(#ffd36d, 10%);
     transform: translateY(0px);
   }
   100% {
-    height: 25vmin;
+    height: 42px;
+  }
+}
+@keyframes bubble {
+  0% {
+    transform: translateY(0px);
+  }
+  99% {
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 0;
   }
 }
 </style>
