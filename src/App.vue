@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <v-app>
-      <div class="loading"></div>
-      <router-view/>
+      <MobileMenu class="hidden-md-and-up"></MobileMenu>
+      <transition name="fade">
+        <router-view/>
+      </transition>
       <SpeedDial class="hidden-sm-and-down"></SpeedDial>
       <ProfileDrawer class="hidden-sm-and-down" v-if="!viewingStats"></ProfileDrawer>
     </v-app>
@@ -12,11 +14,13 @@
 <script lang="ts">
 import { mapState } from 'vuex';
 import { Component, Vue } from 'vue-property-decorator';
+import MobileMenu from '@/components/MobileMenu.vue';
 import ProfileDrawer from '@/components/ProfileDrawer.vue';
 import SpeedDial from '@/components/SpeedDial.vue';
 
 @Component({
   components: {
+    MobileMenu,
     ProfileDrawer,
     SpeedDial,
   },
@@ -24,7 +28,7 @@ import SpeedDial from '@/components/SpeedDial.vue';
     ...mapState(['loading']),
     viewingStats() {
       return this.$route.name === 'Stats';
-    }
+    },
   },
 })
 export default class App extends Vue {
@@ -47,6 +51,20 @@ export default class App extends Vue {
   background: url('/assets/background.png');
   background-repeat: repeat;
   text-transform: lowercase;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 0.3s;
+}
+
+.fade-enter-active {
+  transition-delay: 0.3s;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 .v-navigation-drawer__border {
   display: none;
