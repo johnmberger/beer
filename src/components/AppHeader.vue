@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar dark color="purple" scroll-toolbar-off-screen fixed>
+    <v-toolbar dark color="purple" scroll-off-screen fixed>
       <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="!noLinks"></v-toolbar-side-icon>
       <v-toolbar-title class="white--text">What's John Drinking?</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -25,7 +25,7 @@
       </v-menu>
     </v-toolbar>
     <v-navigation-drawer v-model="drawer" absolute temporary width="200">
-      <img src="/assets/beer_sign_cropped.jpg" alt="beer" class="beer-sign">
+      <img src="/beer/assets/beer_sign_cropped.jpg" alt="beer" class="beer-sign">
 
       <v-list class="pt-0">
         <v-list-tile @click="router('Latest')">

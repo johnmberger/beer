@@ -80,7 +80,7 @@ export default class App extends Vue {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background: url('@~/assets/background.png');
+  background: url('/beer/assets/background.png');
   background-repeat: repeat;
   text-transform: lowercase;
   min-width: 320px;
