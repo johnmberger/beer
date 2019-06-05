@@ -1,16 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Landing from './components/Landing.vue';
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'Landing',
-      component: Landing,
-    },
     {
       path: '/latest',
       name: 'Latest',
@@ -28,6 +22,10 @@ export default new Router({
       name: 'Stats',
       component: () =>
         import(/* webpackChunkName: "latest" */ './views/Stats.vue'),
+    },
+    {
+      path: '*',
+      redirect: '/latest',
     },
   ],
 });

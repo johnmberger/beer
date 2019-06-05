@@ -29,7 +29,7 @@ $bubble: darken(#ffd36d, 15%);
 }
 
 .loader-wrapper {
-  padding: 45px 38px 20px 40px;
+  padding: 45px 45px 20px;
   background: rgba(0, 0, 0, 0.12);
   border-radius: 5px;
 }
@@ -58,6 +58,7 @@ $bubble: darken(#ffd36d, 15%);
 }
 
 .mug {
+  z-index: 0;
   position: relative;
   @include size(36px, 60px);
   background: $mug;
@@ -68,21 +69,22 @@ $bubble: darken(#ffd36d, 15%);
     content: '';
   }
   &:before {
-    z-index: -2;
+    z-index: 0;
     left: 24px;
     top: 12px;
-    @include size(30px, 34px);
+    @include size(25px, 34px);
     border-radius: 19%;
-    background: $mug;
+    background: transparent;
+    border: 2px solid grey;
   }
-  &:after {
-    z-index: -1;
-    @include size(24px, 26px);
-    top: 8px;
-    left: 13px;
-    background: lightgrey;
-    border-radius: 19%;
-  }
+  // &:after {
+  //   z-index: -2;
+  //   @include size(24px, 26px);
+  //   top: 8px;
+  //   left: 13px;
+  //   background: lightgrey;
+  //   border-radius: 19%;
+  // }
 }
 
 .beer {

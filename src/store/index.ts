@@ -17,13 +17,17 @@ const store: any = {
     recentBeersLoaded: false,
     beerStats: null,
     statsLoaded: false,
-    loading: true,
+    apiLimit: false,
     error: null,
   },
   actions: {
     async userInfo({ commit }: any) {
       try {
         const res: AxiosResponse = await api.getUserInfo();
+        // api limit reached
+        if (res && res.data.meta && res.data.meta.code === 429) {
+          commit('apiLimit');
+        }
         const me: UserData | {} = distillUserInfoResponse(res);
         commit('setUserInfo', me);
       } catch (e) {
@@ -33,6 +37,10 @@ const store: any = {
     async topTenBeers({ commit }: any) {
       try {
         const res: AxiosResponse = await api.getTopTen();
+        // api limit reached
+        if (res && res.data.meta && res.data.meta.code === 429) {
+          commit('apiLimit');
+        }
         const topTenBeers: any[] = distillApiResponse(res);
         commit('setTopTenBeers', topTenBeers);
       } catch (e) {
@@ -42,6 +50,10 @@ const store: any = {
     async recentBeers({ commit }: any) {
       try {
         const res: AxiosResponse = await api.getLatest();
+        // api limit reached
+        if (res && res.data.meta && res.data.meta.code === 429) {
+          commit('apiLimit');
+        }
         const recentBeers: any[] = distillApiResponse(res);
         commit('setRecentBeers', recentBeers);
       } catch (e) {
@@ -55,8 +67,6 @@ const store: any = {
         commit('setStats', beerStats);
       } catch (e) {
         commit('error', e);
-      } finally {
-        commit('setLoadingStatus', false);
       }
     },
   },
@@ -142,8 +152,8 @@ const store: any = {
       state.beerStats = data;
       state.statsLoaded = true;
     },
-    setLoadingStatus(state: any, status: boolean) {
-      state.loading = status;
+    apiLimit(state: any) {
+      state.apiLimit = true;
     },
   },
 };

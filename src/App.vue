@@ -4,13 +4,24 @@
       <div v-if="loading" class="loading">
         <BeerLoader></BeerLoader>
         <h2>tapping the kegs</h2>
-        <div class="almost" >
+        <div class="almost">
           <v-fade-transition>
             <p v-if="additionalText">pouring a pint...</p>
           </v-fade-transition>
         </div>
       </div>
-      <div v-else>
+      <div v-if="apiLimit" class="loading">
+        <AppHeader noLinks="true"></AppHeader>
+        <BeerLoader></BeerLoader>
+        <h2>go grab a beer</h2>
+        <div class="almost">
+          <p>
+            untappd is telling us to cool our jets -
+            <br>try again after a cold one or two
+          </p>
+        </div>
+      </div>
+      <div v-if="!apiLimit && !loading">
         <AppHeader></AppHeader>
         <transition name="fade">
           <router-view/>
@@ -38,7 +49,7 @@ import SpeedDial from '@/components/SpeedDial.vue';
     SpeedDial,
   },
   computed: {
-    ...mapState(['loading']),
+    ...mapState(['apiLimit']),
     viewingStats() {
       return this.$route.name === 'Stats';
     },
@@ -46,15 +57,19 @@ import SpeedDial from '@/components/SpeedDial.vue';
 })
 export default class App extends Vue {
   private additionalText: boolean = false;
+  private loading: boolean = true;
 
   async mounted() {
     setTimeout(() => {
       this.additionalText = true;
     }, 4500);
-    await this.$store.dispatch('userInfo');
-    await this.$store.dispatch('topTenBeers');
-    await this.$store.dispatch('recentBeers');
-    await this.$store.dispatch('beerStats');
+    const initialApiCalls = await Promise.all([
+      this.$store.dispatch('userInfo'),
+      this.$store.dispatch('topTenBeers'),
+      this.$store.dispatch('recentBeers'),
+      this.$store.dispatch('beerStats'),
+    ]);
+    this.loading = false;
   }
 }
 </script>
@@ -65,7 +80,7 @@ export default class App extends Vue {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background: url('/assets/background.png');
+  background: url('~/assets/background.png');
   background-repeat: repeat;
   text-transform: lowercase;
   min-width: 320px;
