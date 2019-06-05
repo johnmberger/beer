@@ -1,10 +1,23 @@
 <template>
   <div id="app">
     <v-app>
-      <div class="loading"></div>
-      <router-view/>
-      <SpeedDial class="hidden-sm-and-down"></SpeedDial>
-      <ProfileDrawer class="hidden-sm-and-down" v-if="!viewingStats"></ProfileDrawer>
+      <div v-if="loading" class="loading">
+        <BeerLoader></BeerLoader>
+        <h2>tapping the kegs</h2>
+        <div class="almost" >
+          <v-fade-transition>
+            <p v-if="additionalText">pouring a pint...</p>
+          </v-fade-transition>
+        </div>
+      </div>
+      <div v-else>
+        <AppHeader></AppHeader>
+        <transition name="fade">
+          <router-view/>
+        </transition>
+        <!-- <SpeedDial class="hidden-md-and-up"></SpeedDial> -->
+        <ProfileDrawer class="hidden-sm-and-down" v-if="!viewingStats"></ProfileDrawer>
+      </div>
     </v-app>
   </div>
 </template>
@@ -12,11 +25,15 @@
 <script lang="ts">
 import { mapState } from 'vuex';
 import { Component, Vue } from 'vue-property-decorator';
+import AppHeader from '@/components/AppHeader.vue';
+import BeerLoader from '@/components/BeerLoader.vue';
 import ProfileDrawer from '@/components/ProfileDrawer.vue';
 import SpeedDial from '@/components/SpeedDial.vue';
 
 @Component({
   components: {
+    AppHeader,
+    BeerLoader,
     ProfileDrawer,
     SpeedDial,
   },
@@ -24,41 +41,79 @@ import SpeedDial from '@/components/SpeedDial.vue';
     ...mapState(['loading']),
     viewingStats() {
       return this.$route.name === 'Stats';
-    }
+    },
   },
 })
 export default class App extends Vue {
-  mounted() {
-    this.$store.dispatch('userInfo');
-    this.$store.dispatch('topTenBeers');
-    this.$store.dispatch('recentBeers');
-    this.$store.dispatch('beerStats');
+  private additionalText: boolean = false;
+
+  async mounted() {
+    setTimeout(() => {
+      this.additionalText = true;
+    }, 4500);
+    await this.$store.dispatch('userInfo');
+    await this.$store.dispatch('topTenBeers');
+    await this.$store.dispatch('recentBeers');
+    await this.$store.dispatch('beerStats');
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   background: url('/assets/background.png');
   background-repeat: repeat;
   text-transform: lowercase;
+  min-width: 320px;
+  min-height: 500px;
 }
+.loading {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    margin-top: 20px;
+    color: grey;
+    font-weight: 400;
+  }
+  p {
+    color: grey;
+    font-weight: 300;
+  }
+  .almost {
+    height: 30px;
+  }
+}
+.title-container {
+  .beer-title {
+    margin-top: 100px;
+    font-size: 44px;
+    font-weight: 300;
+  }
+}
+/* Vuetify override */
 .v-navigation-drawer__border {
   display: none;
 }
-.title-container {
-  text-align: left;
-  margin-left: 24px;
-  margin-top: 40px;
-  margin-bottom: 40px;
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 0.5s;
 }
-.beer-title {
-  font-size: 36px;
-  font-weight: 400;
+
+.fade-enter-active {
+  transition-delay: 0.5s;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 </style>

@@ -14,6 +14,7 @@
       padding="24"
       line-width="3"
       stroke-linecap="round"
+      :fill="fill || false"
       smooth
     >
       <template v-slot:label="stat">{{ filterLabel(filter, stat.index + 1) }}</template>
@@ -30,7 +31,7 @@
       stroke-linecap="round"
       smooth
     >
-      <template v-slot:label="stat">{{ labels[stat.index] % 0.5 == 0  ? labels[stat.index] : '' }}</template>
+      <template v-slot:label="stat">{{ labels[stat.index] % 0.5 == 0 ? labels[stat.index] : '' }}</template>
     </v-sparkline>
   </v-card>
 </template>
@@ -55,6 +56,7 @@ export default class StatCard extends Vue {
   @Prop() private filter!: string;
   @Prop() private graph!: boolean;
   @Prop() private labels!: boolean;
+  @Prop() private fill!: boolean;
 }
 </script>
 
@@ -75,5 +77,11 @@ export default class StatCard extends Vue {
 .title-copy {
   font-weight: 400;
   color: grey;
+}
+
+@media (max-width: 450px) {
+  .title-copy {
+    font-size: 18px;
+  }
 }
 </style>
