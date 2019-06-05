@@ -28,7 +28,7 @@
       <img src="/assets/beer_sign_cropped.jpg" alt="beer" class="beer-sign">
 
       <v-list class="pt-0">
-        <v-list-tile @click="$router.push({ name: 'Latest' })">
+        <v-list-tile @click="router('Latest')">
           <v-list-tile-action>
             <v-icon>fas fa-beer</v-icon>
           </v-list-tile-action>
@@ -37,7 +37,7 @@
             <v-list-tile-title>my latest beers</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="$router.push({ name: 'Stats' })">
+        <v-list-tile @click="router('Stats')">
           <v-list-tile-action>
             <v-icon>fas fa-chart-bar</v-icon>
           </v-list-tile-action>
@@ -46,7 +46,7 @@
             <v-list-tile-title>my beer stats</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="$router.push({ name: 'Top' })">
+        <v-list-tile @click="router('Top')">
           <v-list-tile-action>
             <v-icon>fas fa-award</v-icon>
           </v-list-tile-action>
@@ -69,14 +69,18 @@ export default class AppHeader extends Vue {
   
   private drawer: boolean = false;
 
-  public goHome() {
+  public goHome(): void {
     window.location.href = 'https://johnmberger.com';
   }
-  public goToUntappd() {
+  public goToUntappd(): void {
     window.location.href = 'https://untappd.com/user/Mustached';
   }
-  public goToGitHub() {
+  public goToGitHub(): void {
     window.location.href = 'https://github.com/johnmberger';
+  }
+  private router(name: string): void {
+    this.drawer = false;
+    this.$router.push({ name })
   }
 }
 </script>

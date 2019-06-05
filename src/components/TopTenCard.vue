@@ -46,5 +46,9 @@ export default class TopTenCard extends Vue {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.rating {
+  width: 100%;
 }
 </style>

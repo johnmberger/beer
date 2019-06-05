@@ -19,20 +19,19 @@
     >
       <template v-slot:label="stat">{{ filterLabel(filter, stat.index + 1) }}</template>
     </v-sparkline>
-    <v-sparkline
-      v-if="graph === 'bars'"
-      :value="stat"
-      auto-draw
-      color="grey"
-      :gradient="['#f72047', '#ffd200', '#1feaea']"
-      height="150"
-      padding="24"
-      line-width="3"
-      stroke-linecap="round"
-      smooth
-    >
-      <template v-slot:label="stat">{{ labels[stat.index] % 0.5 == 0 ? labels[stat.index] : '' }}</template>
-    </v-sparkline>
+    <div v-if="graph === 'bars'">
+      <v-sparkline
+        type="bar"
+        :value="stat"
+        :gradient="['#f72047', '#ffd200', '#1feaea']"
+        height="150"
+        padding="28"
+        smooth
+      ></v-sparkline>
+      <div class="custom-labels">
+        <span class="custom-value" v-for="label in labels" :key="label">{{ label }}</span>
+      </div>
+    </div>
   </v-card>
 </template>
 
@@ -55,12 +54,29 @@ export default class StatCard extends Vue {
   @Prop() private icon!: string;
   @Prop() private filter!: string;
   @Prop() private graph!: boolean;
-  @Prop() private labels!: boolean;
+  @Prop() private labels!: number[];
   @Prop() private fill!: boolean;
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.custom-labels {
+  width: 100%;
+  text-anchor: middle;
+  color: grey;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 4.2%;
+  padding-right: 5.7%;
+  margin-top: -8.1%;
+  text-align: center;
+  padding-bottom: 22px;
+  .custom-value {
+    width: 14%;
+  }
+}
 .stat-card {
   margin: 24px;
   margin-top: 28px;

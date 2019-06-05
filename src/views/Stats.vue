@@ -1,8 +1,8 @@
 <template>
   <v-container class="stat-container">
     <v-layout v-if="statsLoaded">
-      <div class="title-container">
-        <h1 class="beer-title">Some fun stats</h1>
+      <div class="title-container stats-title-container">
+        <h1 class="beer-title stats-title">Some other fun stats</h1>
       </div>
     </v-layout>
     <v-layout row wrap v-if="beerStats">
@@ -81,7 +81,7 @@ import StylesTried from '@/components/StylesTried.vue';
 export default class Stats extends Vue {}
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .title-container {
   margin-top: 16px;
 }
@@ -91,6 +91,13 @@ export default class Stats extends Vue {}
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.stats-title-container {
+  margin-top: 0px;
+  width: 100%;
+  .stats-title {
+    text-align: center;
+  }
 }
 .stat-card {
   margin: 24px;

@@ -122,7 +122,9 @@ const store: any = {
     },
     ratingLabels(state: any): Stat[] {
       if (state.beerStats) {
-        return state.beerStats.ratingCount.map((rating: Stat) => rating.name);
+        return state.beerStats.ratingCount
+          .map((rating: Stat) => rating.name)
+          .filter((rating: number) => rating % 0.5 == 0);
       } else {
         return [];
       }
